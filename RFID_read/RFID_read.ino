@@ -29,15 +29,6 @@ String response;
 
 WiFiClient client;
 
-struct RFID_data{
-  String name;
-  String sex;
-  String age;
-  String phone;
-};
-
-struct RFID_data data;
-
 void connectNetwork()
 {
   Serial.print("Connecting to ");
@@ -139,15 +130,6 @@ void write_data(String data, String V_pin){
   }
 }
 
-void str_cpy(String dest, const String source){
-  int length = source.length();
-  int i = 0;
-  for(i; source[i] != '\0'; i++){
-    dest[i] = source[i]; 
-  }
-  dest[i] = '\0';
-}
-
 void loop() {
   // put your main code here, to run repeatedly:
   byte tagId[4] = {0, 0, 0, 0};
@@ -175,26 +157,22 @@ void loop() {
       if(key.equals("PERSON")){
         value = rfidDict.get(key);
         write_data(value, "V8");
-        str_cpy(data.name, value);
+        Serial.printf("Name: %s\n", value);
       }else if(key.equals("AGE")){
         value = rfidDict.get(key);
         write_data(value, "V7");
-        str_cpy(data.age, value);
+        Serial.printf("Age: %s\n", value);
       }else if(key.equals("SEX")){
         value = rfidDict.get(key);
         write_data(value, "V6");
-        str_cpy(data.sex, value);
+        Serial.printf("Sex: %s\n", value);
       }else if(key.equals("PHONE")){
         value = rfidDict.get(key);
         write_data(value, "V5");
-        str_cpy(data.phone, value);
+        Serial.printf("Phone: %s\n", value);
       }
     }
     write_data("1", "V10");
-    Serial.printf("Name: %s", data.name);
-    Serial.printf("Age: %s", data.age);
-    Serial.printf("Sex: %s", data.sex);
-    Serial.printf("Phone: %s", data.phone);
   }else{
     Serial.println("Unauthorized card");
     write_data("0", "V10");
