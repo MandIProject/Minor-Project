@@ -176,25 +176,25 @@ void loop() {
         value = rfidDict.get(key);
         write_data(value, "V8");
         str_cpy(data.name, value);
-        Serial.println("| \"" + key + "\" \t=> \"" + value + "\"");
       }else if(key.equals("AGE")){
         value = rfidDict.get(key);
         write_data(value, "V7");
         str_cpy(data.age, value);
-        Serial.println("| \"" + key + "\" \t=> \"" + value + "\"");
       }else if(key.equals("SEX")){
         value = rfidDict.get(key);
         write_data(value, "V6");
         str_cpy(data.sex, value);
-        Serial.println("| \"" + key + "\" \t=> \"" + value + "\"");
       }else if(key.equals("PHONE")){
         value = rfidDict.get(key);
         write_data(value, "V5");
         str_cpy(data.phone, value);
-        Serial.println("| \"" + key + "\" \t=> \"" + value + "\"");
       }
     }
     write_data("1", "V10");
+    Serial.printf("Name: %s", data.name);
+    Serial.printf("Age: %s", data.age);
+    Serial.printf("Sex: %s", data.sex);
+    Serial.printf("Phone: %s", data.phone);
   }else{
     Serial.println("Unauthorized card");
     write_data("0", "V10");
